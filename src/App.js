@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
 
 function App() {
 	const [pokemonImageUrl, setPokemonImageUrl] = useState("");
@@ -23,8 +24,15 @@ function App() {
 
 	return (
 		<div className="App">
-			hello
-			<img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" } alt="Pokemon" />
+			<p>{pokemonImageUrl}</p>
+			<Button variant="contained">Hello World</Button>
+			<img
+				className="picture"
+				src={
+					"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"
+				}
+				alt="Pokemon"
+			/>
 		</div>
 	);
 }
