@@ -1,3 +1,5 @@
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { Howl, Howler } from "howler";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -14,9 +16,9 @@ function App() {
 	useEffect(() => {
 		const music = new Howl({
 			src: [sound],
-		volume: 0.5,
-		onload: true,
-		loop: true
+			volume: 0.5,
+			onload: true,
+			loop: true,
 		});
 		music.play();
 	}, []);
@@ -80,13 +82,26 @@ function App() {
 		//<Pokemon name={name}></Pokemon>
 
 		pokemonData && pokemonImageUrl ? (
-			<div className="container-lang">
-				{/* <Button onClick={() => setvalue(value + 1)}> Play Me</Button> */}
-				{/* <button onClick={() => setValue(value + 1)}>Play Button</button> */}
+			<div
+				className="container-lang"
+				style={{ position: "relative", minHeight: "100vh" }}
+			>
 				<SilhouettePage
 					pokemonName={pokemonData.name}
 					imageUrl={pokemonData.sprites.front_default}
 				/>
+				<Fab
+					style={{
+						position: "fixed",
+						bottom: "24px",
+						right: "24px",
+						zIndex: 2,
+					}}
+					color="primary"
+					aria-label="add"
+				>
+					<AddIcon />
+				</Fab>
 			</div>
 		) : (
 			<div>Loading...</div>
