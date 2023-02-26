@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import axios from "axios";
 
-const Pokemon = ({ name }) => {
-	const [pokemonData, setPokemonData] = useState(null);
-
-	// useEffect(() => {
-	// 	axios
-	// 		.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-	// 		.then((response) => {
-	// 			setPokemonData(response.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log(error);
-	// 		});
-	// }, [name]);
+const Pokemon = (props) => {
+	const { pokemonData } = props.location.state;
 
 	// const FirstHalf = () => {
 	// 	return (
@@ -47,6 +37,7 @@ const Pokemon = ({ name }) => {
 						alt={pokemonData.name}
 						style={{ heigth: "100%", width: "auto" }}
 					/>
+					<h1>{pokemonData.name}</h1>
 
 					{/* <p>Height: {pokemonData.height}</p>
           <p>Weight: {pokemonData.weight}</p>
