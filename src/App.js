@@ -4,10 +4,21 @@ import Button from "@mui/material/Button";
 import PokemonPage from "./sample";
 import Pokemon from "./components/Pokemon";
 import SilhouettePage from "./components/GuessPage";
+import sound from "./assets/b.mp3";
 import "./App.css";
 
 function App() {
+	const [value, setValue] = useState(0);
+
+	function play() {
+		new Audio(sound).play();
+	}
+
 	let name = "pikachu"; // ! sample remove after
+
+	useEffect(() => {
+		play();
+	}, [value]);
 
 	const today = new Date();
 
@@ -29,7 +40,10 @@ function App() {
 
 	const pokemonIndex = Math.abs(hashCode(dateString)) % 493; // There are currently 898 Pokemon in the PokeAPI
 
-	const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
+	// const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
+	const [pokemonUrl, setpokemonUrl] = useState(
+		`https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`
+	);
 
 	const [pokemonImageUrl, setPokemonImageUrl] = useState("");
 
@@ -42,9 +56,10 @@ function App() {
 			console.error(error);
 		}
 	};
+
 	useEffect(() => {
 		getPokemonImageUrl();
-	}, []);
+	});
 
 	const [pokemonData, setPokemonData] = useState(null);
 
@@ -53,20 +68,25 @@ function App() {
 			.get(pokemonUrl)
 			.then((response) => {
 				setPokemonData(response.data);
+				setValue(value + 1);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [name]);
+	}, [pokemonUrl, value]);
 
 	return (
 		//<Pokemon name={name}></Pokemon>
 
 		pokemonData && pokemonImageUrl ? (
-			<SilhouettePage
-				pokemonName={pokemonData.name}
-				imageUrl={pokemonData.sprites.front_default}
-			></SilhouettePage>
+			<div className="container-lang">
+				{/* <Button onClick={() => setvalue(value + 1)}> Play Me</Button> */}
+				{/* <button onClick={() => setValue(value + 1)}>Play Button</button> */}
+				<SilhouettePage
+					pokemonName={pokemonData.name}
+					imageUrl={pokemonData.sprites.front_default}
+				/>
+			</div>
 		) : (
 			<div>Loading...</div>
 		)
