@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Typography, CircularProgress, List, ListItem, ListItemText } from "@mui/material";
 
 const Pokemon = ({ name }) => {
   const [pokemonData, setPokemonData] = useState(null);
-  const [spriteBackground, setSpriteBackground] = useState("");
 
   useEffect(() => {
     axios
@@ -17,43 +15,59 @@ const Pokemon = ({ name }) => {
       });
   }, [name]);
 
-  useEffect(() => {
-    if (pokemonData) {
-      const spriteUrl = pokemonData.sprites.front_default;
-      setSpriteBackground(`url(${spriteUrl}) no-repeat center center/contain`);
-    }
-  }, [pokemonData]);
+const FirstHalf = () => {
+	return ( 
+<div className="FirstHalf">
 
-  return (
-    <Box sx={{ backgroundColor: "#f5f5f5", padding: "2rem" }}>
       {pokemonData ? (
-        <Box sx={{ backgroundColor: "#fff", padding: "2rem" }}>
-          <Typography variant="h4">{pokemonData.name}</Typography>
-          <Box sx={{
-            width: "200px",
-            height: "200px",
-            margin: "1rem auto",
-            backgroundImage: spriteBackground,
-            backgroundBlendMode: "screen",
-            backgroundPosition: "center",
-            backgroundSize: "contain",
-            filter: "brightness(120%) saturate(100%)",
-          }} />
-          <Typography variant="h6" sx={{ mt: 2 }}>Height: {pokemonData.height}</Typography>
-          <Typography variant="h6">Weight: {pokemonData.weight}</Typography>
-          <Typography variant="h6" sx={{ mt: 2 }}>Abilities:</Typography>
-          <List sx={{ mt: 1 }}>
+				<div>
+					hello i am {pokemonData.name}
+				</div>
+			)
+			: (
+				<p>Loading...</p>
+			)
+		}
+</div>
+	 );
+}
+ 
+  return (
+    <div>
+      {pokemonData ? (
+        <div>
+          {/* <h2>{pokemonData.name}</h2> */}
+          {/* <img
+            src={pokemonData.sprites.front_default}
+            alt={pokemonData.name}
+            style={{ height: "100vh" }}
+          /> */}
+<img
+  src={pokemonData.sprites.front_default}
+  alt={pokemonData.name}
+  style={{ heigth: "100%", width: "auto" }}
+/>
+
+
+
+
+
+          {/* <p>Height: {pokemonData.height}</p>
+          <p>Weight: {pokemonData.weight}</p>
+          <p>Abilities:</p>
+          <ul>
             {pokemonData.abilities.map((ability, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={ability.ability.name} />
-              </ListItem>
+              <li key={index}>{ability.ability.name}</li>
             ))}
-          </List>
-        </Box>
+          </ul> */}
+<FirstHalf/>
+
+
+        </div>
       ) : (
-        <CircularProgress sx={{ color: "#3f51b5" }} />
+        <p>Loading...</p>
       )}
-    </Box>
+    </div>
   );
 };
 

@@ -1,38 +1,38 @@
-/* /.App {
-  /text-align: center;
-/}
+.silhouette-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-/.App-logo {
-  /height: 40vmin;
-  /pointer-events: none;
-/}
+.silhouette-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-/@media (prefers-reduced-motion: no-preference) {
-  /.App-logo {
-    /animation: App-logo-spin infinite 20s linear;
-  /}
-/}
+.silhouette-container img {
+  width: 300px;
+}
 
-/.App-header {
-  /background-color: #282c34;
-  /min-height: 100vh;
-  /display: flex;
-  /flex-direction: column;
-  /align-items: center;
-  /justify-content: center;
-  /font-size: calc(10px + 2vmin);
-  /color: white;
-/}
+.silhouette-container form {
+  margin-top: 16px;
+}
 
-/.App-link {
-  /color: #61dafb;
-/}
+.silhouette-container label {
+  font-weight: bold;
+}
 
-/@keyframes App-logo-spin {
-  /from {
-    /transform: rotate(0deg);
-  /}
-  /to {
-    /transform: rotate(360deg);
-  /}
-/} */
+.silhouette-container input {
+  margin-left: 8px;
+}
+
+.pokemon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon-container img {
+  width: 300px;
+}
