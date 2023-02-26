@@ -1,3 +1,4 @@
+import { Howl, Howler } from "howler";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
@@ -8,17 +9,14 @@ import sound from "./assets/b.mp3";
 import "./App.css";
 
 function App() {
-	const [value, setValue] = useState(0);
-
-	function play() {
-		new Audio(sound).play();
-	}
-
 	let name = "pikachu"; // ! sample remove after
 
 	useEffect(() => {
-		play();
-	}, [value]);
+		const music = new Howl({
+			src: [sound],
+		});
+		music.play();
+	}, []);
 
 	const today = new Date();
 
@@ -68,12 +66,12 @@ function App() {
 			.get(pokemonUrl)
 			.then((response) => {
 				setPokemonData(response.data);
-				setValue(value + 1);
+				// setValue(value + 1);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [pokemonUrl, value]);
+	}, [pokemonUrl]);
 
 	return (
 		//<Pokemon name={name}></Pokemon>
