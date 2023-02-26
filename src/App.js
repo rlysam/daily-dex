@@ -4,16 +4,20 @@ import Button from "@mui/material/Button";
 import PokemonPage from "./sample";
 import Pokemon from "./components/Pokemon";
 import SilhouettePage from "./components/GuessPage";
+import "./App.css";
 
 function App() {
 	const [pokemonImageUrl, setPokemonImageUrl] = useState("");
 
+	let name = "pikachu";
+
 	const getPokemonImageUrl = async () => {
 		try {
 			const response = await axios.get(
-				"https://pokeapi.co/api/v2/pokemon/" +
-					Math.floor(Math.random() * 898) +
-					1
+				// "https://pokeapi.co/api/v2/pokemon/" +
+				// 	Math.floor(Math.random() * 898) +
+				// 	1
+`https://pokeapi.co/api/v2/pokemon/${name}`
 			);
 			const pokemon = response.data;
 			setPokemonImageUrl(pokemon.sprites.front_default);
@@ -27,7 +31,6 @@ function App() {
 
 	const [pokemonData, setPokemonData] = useState(null);
 
-	let name = "pikachu";
 	useEffect(() => {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -57,7 +60,7 @@ function App() {
 	return (
 		//<Pokemon name={name}></Pokemon>
 
-		pokemonData ? (
+		pokemonData && pokemonImageUrl ? (
 			<SilhouettePage
 				pokemonName={pokemonData.name}
 				imageUrl={pokemonData.sprites.front_default}
