@@ -31,7 +31,7 @@ import Typography from '@mui/material/Typography';
 // }));
 
 
-const PokemonPage = () => {
+const SamplePage = () => {
   // const classes = useStyles();
 
   return (
@@ -56,4 +56,4 @@ const PokemonPage = () => {
   );
 };
 
-export default PokemonPage;
+export default SamplePage;
