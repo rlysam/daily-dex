@@ -16,26 +16,19 @@ const SilhouettePage = ({ pokemonName, imageUrl }) => {
 		}
 	};
 
-	const blackImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='black'/%3E%3C/svg%3E`;
-
 	return (
 		<div className="silhouette-page">
 			{!isCorrect && (
 				<div className="silhouette-container">
-					<div
-						className="silhouette-image"
-						style={{
-							backgroundImage: `url(${blackImage}), url(${imageUrl})`,
-						}}
-					></div>
 					<form onSubmit={handleSubmit}>
 						<label htmlFor="guess-input">Who's that Pokemon?</label>
 
 						<img
 							src={imageUrl}
 							alt={pokemonName}
-							style={{ filter: "contrast(0%) brightness(10%)" }}
+							style={{ filter: "contrast(0%) brightness(0%)" }}
 						/>
+
 						<input
 							id="guess-input"
 							type="text"
