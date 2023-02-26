@@ -10,13 +10,12 @@ import IconVolumeOff from "@mui/icons-material/VolumeOff";
 
 // handles routing
 function App() {
-
-		const music = new Howl({
-			src: [sound],
-			volume: 0.5,
-			onload: true,
-			loop: true,
-		});
+	const music = new Howl({
+		src: [sound],
+		volume: 0.5,
+		onload: true,
+		loop: true,
+	});
 	useEffect(() => {
 		music.play();
 	}, []);
@@ -34,9 +33,10 @@ function App() {
 				</Switch>
 			</Router>
 			<Fab
-			 onClick={() => {
-				stopMusic()
-			 }}
+				onClick={() => {
+					stopMusic();
+				}}
+				//float to bottom-right
 				style={{
 					position: "fixed",
 					bottom: "24px",

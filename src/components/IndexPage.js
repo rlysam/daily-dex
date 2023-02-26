@@ -16,6 +16,7 @@ import "./../App.css";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { Stack } from "@mui/material";
 
 const IndexPage = () => {
 	//TODO Other Data (see figma)
@@ -96,28 +97,34 @@ const IndexPage = () => {
 	}, [isCorrect]);
 
 	return pokemonData && pokemonImageUrl ? (
-		<div className="silhouette-page">
+		<Stack spacing={4} direction="column">
 			{!isCorrect && (
-				<div className="silhouette-container">
-					<form onSubmit={handleSubmit}>
-						<label htmlFor="guess-input">Who's that Pokemon?</label>
-						<img
-							src={pokemonImageUrl}
-							alt={pokemonName}
-							style={{ filter: "contrast(0%) brightness(10%)" }}
-						/>
-						<TextField
-							id="guess-input"
-							label="Asnwer"
-							type={"text"}
-							value={guess}
-							onChange={handleInputChange}
-						/>
-						<Button variant="contained" color="primary" type="submit">
-							Submit
-						</Button>
-					</form>
-				</div>
+				<Stack>
+					<Typography variant="h3" color="initial">
+						Who's that Pokemon?
+					</Typography>
+					<img
+						src={pokemonImageUrl}
+						alt={pokemonName}
+						style={{ filter: "contrast(0%) brightness(10%)" }}
+					/>
+					<TextField
+						id="guess-input"
+						label="Asnwer"
+						type={"text"}
+						value={guess}
+						onChange={handleInputChange}
+						autoFocus="true"
+					/>
+					<Button
+						variant="contained"
+						color="primary"
+						type="submit"
+						onClick={handleSubmit}
+					>
+						Submit
+					</Button>
+				</Stack>
 			)}
 			{isCorrect && (
 				<div className="pokemon-container">
@@ -130,8 +137,9 @@ const IndexPage = () => {
 					</Typography>
 				</div>
 			)}
-		</div>
+		</Stack>
 	) : (
+		// <div className="silhouette-page"> </div>
 		<div>
 			<Typography variant="h2" color="initial">
 				Loading...
