@@ -69,7 +69,7 @@ const IndexPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (guess === pokemonName.toLowerCase()) {
+		if (guess === pokemonData.name.toLowerCase()) {
 			setIsCorrect(true);
 		}
 	};
