@@ -1,13 +1,25 @@
+//  ! how to make Nav Links
+// <Link to={{ pathname: "/second-page", state: { pokemonData } }}>
+// 	Go to Second Page
+// </Link>
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Link,
+	Route,
+	Switch,
+	useHistory,
+} from "react-router-dom";
 import "./../App.css";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 const IndexPage = () => {
 	//TODO Other Data (see figma)
-	let pokemonName;
-	let imageUrl;
+	const [pokemonName, setpokemonName] = useState();
 
 	// for getting pokemon data
 	// * Date Seed
@@ -26,6 +38,8 @@ const IndexPage = () => {
 		return hash;
 	}
 
+	const history = useHistory();
+
 	const pokemonIndex = Math.abs(hashCode(dateString)) % 493; // * 493 = last gen 4
 
 	const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
@@ -38,6 +52,7 @@ const IndexPage = () => {
 			.get(pokemonUrl)
 			.then((response) => {
 				setPokemonData(response.data);
+				setpokemonName(pokemonData.name);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -74,42 +89,54 @@ const IndexPage = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (isCorrect) {
+			history.push("/second-page", { pokemonData });
+		}
+	}, [isCorrect]);
+
 	return pokemonData && pokemonImageUrl ? (
 		<div className="silhouette-page">
 			{!isCorrect && (
 				<div className="silhouette-container">
 					<form onSubmit={handleSubmit}>
 						<label htmlFor="guess-input">Who's that Pokemon?</label>
-
 						<img
 							src={pokemonImageUrl}
 							alt={pokemonName}
 							style={{ filter: "contrast(0%) brightness(10%)" }}
 						/>
-						<input
+						<TextField
 							id="guess-input"
-							type="text"
+							label="Asnwer"
+							type={"text"}
 							value={guess}
 							onChange={handleInputChange}
 						/>
-						<button type="submit">Guess</button>
+						<Button variant="contained" color="primary" type="submit">
+							Submit
+						</Button>
 					</form>
-
-					<Link to={{ pathname: "/second-page", state: { pokemonData } }}>
-						Go to Second Page
-					</Link>
 				</div>
 			)}
 			{isCorrect && (
 				<div className="pokemon-container">
-					<h2>{pokemonName}</h2>
+					<Typography variant="h2" color="initial">
+						{pokemonName}
+					</Typography>
 					<img src={pokemonImageUrl} alt={pokemonName} />
-					<p>Congratulations! You guessed correctly.</p>
+					<Typography variant="h4" color="initial">
+						Congratulations! You guessed correctly.
+					</Typography>
 				</div>
 			)}
 		</div>
 	) : (
-		<div>Loading...</div>
+		<div>
+			<Typography variant="h2" color="initial">
+				Loading...
+			</Typography>
+		</div>
 	);
 };
 

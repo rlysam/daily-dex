@@ -6,20 +6,24 @@ import "./App.css";
 import sound from "./assets/1.mp3";
 import { Howl, Howler } from "howler";
 import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import IconVolumeOff from "@mui/icons-material/VolumeOff";
 
 // handles routing
 function App() {
 
-	useEffect(() => {
 		const music = new Howl({
 			src: [sound],
 			volume: 0.5,
 			onload: true,
 			loop: true,
 		});
+	useEffect(() => {
 		music.play();
 	}, []);
+
+	function stopMusic() {
+		music.stop();
+	}
 
 	return (
 		<div className="outer-container">
@@ -31,7 +35,7 @@ function App() {
 			</Router>
 			<Fab
 			 onClick={() => {
-				console.log("FAB");
+				stopMusic()
 			 }}
 				style={{
 					position: "fixed",
@@ -42,7 +46,7 @@ function App() {
 				color="primary"
 				aria-label="add"
 			>
-				<AddIcon />
+				<IconVolumeOff />
 			</Fab>
 		</div>
 	);

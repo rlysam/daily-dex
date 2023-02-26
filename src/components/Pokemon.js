@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import axios from "axios";
+import { Typography } from "@mui/material";
 
 const Pokemon = (props) => {
 	const { pokemonData } = props.location.state;
@@ -50,7 +51,7 @@ const Pokemon = (props) => {
 					{/* <FirstHalf /> */}
 				</div>
 			) : (
-				<p>Loading...</p>
+			<Typography variant="h2" color="initial">Loading...</Typography>
 			)}
 		</div>
 	);
