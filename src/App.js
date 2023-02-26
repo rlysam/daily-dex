@@ -7,18 +7,35 @@ import SilhouettePage from "./components/GuessPage";
 import "./App.css";
 
 function App() {
-	const [pokemonImageUrl, setPokemonImageUrl] = useState("");
+	let name = "pikachu"; // ! sample remove after
 
-	let name = "pikachu";
+	const today = new Date();
+
+	const day = today.getDate();
+	const month = today.getMonth() + 1;
+	const year = today.getFullYear();
+
+	const dateString = `${day}-${month}-${year}`;
+
+	//Generate a Seed from current date to ensure that Pokemons are unique everyday
+	function hashCode(str) {
+		let hash = 0;
+		for (let i = 0; i < str.length; i++) {
+			hash = (hash << 5) - hash + str.charCodeAt(i);
+			hash |= 0;
+		}
+		return hash;
+	}
+
+	const pokemonIndex = Math.abs(hashCode(dateString)) % 493; // There are currently 898 Pokemon in the PokeAPI
+
+	const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
+
+	const [pokemonImageUrl, setPokemonImageUrl] = useState("");
 
 	const getPokemonImageUrl = async () => {
 		try {
-			const response = await axios.get(
-				// "https://pokeapi.co/api/v2/pokemon/" +
-				// 	Math.floor(Math.random() * 898) +
-				// 	1
-`https://pokeapi.co/api/v2/pokemon/${name}`
-			);
+			const response = await axios.get(pokemonUrl);
 			const pokemon = response.data;
 			setPokemonImageUrl(pokemon.sprites.front_default);
 		} catch (error) {
@@ -33,7 +50,7 @@ function App() {
 
 	useEffect(() => {
 		axios
-			.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+			.get(pokemonUrl)
 			.then((response) => {
 				setPokemonData(response.data);
 			})
@@ -41,21 +58,6 @@ function App() {
 				console.log(error);
 			});
 	}, [name]);
-
-	// return (
-	// 	<div className="App">
-	// 		<p>{pokemonImageUrl}</p>
-	// 		<Button variant="contained">Hello World</Button>
-	// 		<img
-	// 			className="picture"
-	// 			src={
-	// 				"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png"
-	// 			}
-	// 			alt="Pokemon"
-	// 		/>
-	// 	</div>
-	// );
-	// return (<PokemonPage></PokemonPage>);
 
 	return (
 		//<Pokemon name={name}></Pokemon>
