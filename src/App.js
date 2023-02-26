@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import PokemonPage from "./sample";
 import Pokemon from "./components/Pokemon";
 import SilhouettePage from "./components/GuessPage";
-import sound from "./assets/b.mp3";
+import sound from "./assets/1.mp3";
 import "./App.css";
 
 function App() {
@@ -14,6 +14,9 @@ function App() {
 	useEffect(() => {
 		const music = new Howl({
 			src: [sound],
+		volume: 0.5,
+		onload: true,
+		loop: true
 		});
 		music.play();
 	}, []);
