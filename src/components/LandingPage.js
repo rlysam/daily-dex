@@ -16,9 +16,9 @@ import "./../App.css";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Stack } from "@mui/material";
+import { Autocomplete, Stack } from "@mui/material";
 
-const IndexPage = () => {
+const LandingPage = () => {
 	//TODO Other Data (see figma)
 	const [pokemonName, setpokemonName] = useState();
 
@@ -96,26 +96,63 @@ const IndexPage = () => {
 		}
 	}, [isCorrect]);
 
+	// All Pokemon
+	// Names only
+	const [pokemonNames, setPokemonNames] = useState([]);
+	let allNames = []
+
+	const fetchPokemonNames = async () => {
+		const response = await axios.get(
+			"https://pokeapi.co/api/v2/pokemon?limit=493"
+		);
+		const names = response.data.results.map((pokemon) => pokemon.name);
+		setPokemonNames(names);
+		allNames=pokemonNames;
+	};
+
+	useEffect(() => {
+		fetchPokemonNames();
+	}, []);
+
 	return pokemonData && pokemonImageUrl ? (
-		<Stack spacing={4} direction="column">
+		<Stack
+			spacing={4}
+			direction="column"
+			alignItems="center"
+			justifyContent="center"
+			style={{ minHeight: "100vh" }}
+		>
 			{!isCorrect && (
 				<Stack>
-					<Typography variant="h3" color="initial">
+					<Typography variant="h2" color="initial">
 						Who's that Pokemon?
 					</Typography>
 					<img
 						src={pokemonImageUrl}
 						alt={pokemonName}
-						style={{ filter: "contrast(0%) brightness(10%)" }}
+						style={{
+							filter: "contrast(0%) brightness(10%)",
+						}}
 					/>
-					<TextField
+					<Autocomplete
+						disablePortal
+						options={pokemonNames}
+						autoFocus={true}
+						value={guess}
+						onChange={handleInputChange}
+						onSelect={handleInputChange}
+						type={"text"}
+						clearOnBlur={false}
+						renderInput={(params) => <TextField {...params} label="Answer" />}
+					/>
+					{/* <TextField
 						id="guess-input"
 						label="Asnwer"
 						type={"text"}
 						value={guess}
 						onChange={handleInputChange}
 						autoFocus="true"
-					/>
+					/> */}
 					<Button
 						variant="contained"
 						color="primary"
@@ -148,4 +185,4 @@ const IndexPage = () => {
 	);
 };
 
-export default IndexPage;
+export default LandingPage;

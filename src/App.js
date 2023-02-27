@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Pokemon from "./components/Pokemon";
-import IndexPage from "./components/IndexPage";
+import LandingPage from "./components/LandingPage";
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import sound from "./assets/1.mp3";
@@ -28,7 +28,7 @@ function App() {
 		<div className="outer-container">
 			<Router>
 				<Switch>
-					<Route path="/" exact component={IndexPage} />
+					<Route path="/" exact component={LandingPage} />
 					<Route path="/second-page" component={Pokemon} />
 				</Switch>
 			</Router>
