@@ -16,7 +16,8 @@ import "./../App.css";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Autocomplete, Stack } from "@mui/material";
+import { Autocomplete, Stack, Container, Box } from "@mui/material";
+import { maxHeight } from "@mui/system";
 
 const LandingPage = () => {
 	//TODO Other Data (see figma)
@@ -99,7 +100,7 @@ const LandingPage = () => {
 	// All Pokemon
 	// Names only
 	const [pokemonNames, setPokemonNames] = useState([]);
-	let allNames = []
+	let allNames = [];
 
 	const fetchPokemonNames = async () => {
 		const response = await axios.get(
@@ -107,7 +108,7 @@ const LandingPage = () => {
 		);
 		const names = response.data.results.map((pokemon) => pokemon.name);
 		setPokemonNames(names);
-		allNames=pokemonNames;
+		allNames = pokemonNames;
 	};
 
 	useEffect(() => {
@@ -115,24 +116,23 @@ const LandingPage = () => {
 	}, []);
 
 	return pokemonData && pokemonImageUrl ? (
-		<Stack
-			spacing={4}
-			direction="column"
-			alignItems="center"
-			justifyContent="center"
-			style={{ minHeight: "100vh" }}
-		>
+		<>
 			{!isCorrect && (
-				<Stack>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						maxHeight:"100%"
+					}}
+				>
 					<Typography variant="h2" color="initial">
 						Who's that Pokemon?
 					</Typography>
-					<img
-						src={pokemonImageUrl}
+					<Box
+						component="img"
+						// sx={{ flexGrow: 1 }}
 						alt={pokemonName}
-						style={{
-							filter: "contrast(0%) brightness(10%)",
-						}}
+						src={pokemonImageUrl}
 					/>
 					<Autocomplete
 						disablePortal
@@ -145,14 +145,6 @@ const LandingPage = () => {
 						clearOnBlur={false}
 						renderInput={(params) => <TextField {...params} label="Answer" />}
 					/>
-					{/* <TextField
-						id="guess-input"
-						label="Asnwer"
-						type={"text"}
-						value={guess}
-						onChange={handleInputChange}
-						autoFocus="true"
-					/> */}
 					<Button
 						variant="contained"
 						color="primary"
@@ -161,7 +153,7 @@ const LandingPage = () => {
 					>
 						Submit
 					</Button>
-				</Stack>
+				</Box>
 			)}
 			{isCorrect && (
 				<div className="pokemon-container">
@@ -174,7 +166,7 @@ const LandingPage = () => {
 					</Typography>
 				</div>
 			)}
-		</Stack>
+		</>
 	) : (
 		// <div className="silhouette-page"> </div>
 		<div>
