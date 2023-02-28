@@ -116,57 +116,42 @@ const LandingPage = () => {
 	}, []);
 
 	return pokemonData && pokemonImageUrl ? (
-		<>
-			{!isCorrect && (
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "row",
-						maxHeight: "100%",
-					}}
-				>
-					<Typography variant="h2" color="initial">
-						Who's that Pokemon?
-					</Typography>
-					<Box
-						component="img"
-						sx={{ filter: "contrast(0%) brightness(10%)" }}
-						alt={pokemonName}
-						src={pokemonImageUrl}
-					/>
-					<Autocomplete
-						disablePortal
-						options={pokemonNames}
-						autoFocus={true}
-						value={guess}
-						onChange={handleInputChange}
-						onSelect={handleInputChange}
-						type={"text"}
-						clearOnBlur={false}
-						renderInput={(params) => <TextField {...params} label="Answer" />}
-					/>
-					<Button
-						variant="contained"
-						color="primary"
-						type="submit"
-						onClick={handleSubmit}
-					>
-						Submit
-					</Button>
-				</Box>
-			)}
-			{isCorrect && (
-				<div className="pokemon-container">
-					<Typography variant="h2" color="initial">
-						{pokemonName}
-					</Typography>
-					<img src={pokemonImageUrl} alt={pokemonName} />
-					<Typography variant="h4" color="initial">
-						Congratulations! You guessed correctly.
-					</Typography>
-				</div>
-			)}
-		</>
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "row",
+				maxHeight: "100%",
+			}}
+		>
+			<Typography variant="h2" color="initial">
+				Who's that Pokemon?
+			</Typography>
+			<Box
+				component="img"
+				sx={{ filter: "contrast(0%) brightness(10%)" }}
+				alt={pokemonName}
+				src={pokemonImageUrl}
+			/>
+			<Autocomplete
+				disablePortal
+				options={pokemonNames}
+				autoFocus={true}
+				value={guess}
+				onChange={handleInputChange}
+				onSelect={handleInputChange}
+				type={"text"}
+				clearOnBlur={false}
+				renderInput={(params) => <TextField {...params} label="Answer" />}
+			/>
+			<Button
+				variant="contained"
+				color="primary"
+				type="submit"
+				onClick={handleSubmit}
+			>
+				Submit
+			</Button>
+		</Box>
 	) : (
 		// <div className="silhouette-page"> </div>
 		<div>
