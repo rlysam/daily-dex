@@ -16,7 +16,7 @@ import "./../App.css";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Autocomplete, Stack, Container, Box } from "@mui/material";
+import { Autocomplete, Stack, Container, Box, Grid } from "@mui/material";
 import { maxHeight } from "@mui/system";
 
 const LandingPage = () => {
@@ -116,44 +116,68 @@ const LandingPage = () => {
 	}, []);
 
 	return pokemonData && pokemonImageUrl ? (
-		<Box
+		<Container
 			sx={{
 				display: "flex",
-				flexDirection: "row",
-				maxHeight: "100%",
+				height: "100vh",
+				// width: "100vw",
+				backgroundImage: `url(${pokemonImageUrl})`,
+				backgroundSize: "100%",
+				backgroundPosition: "center",
+
+				position: 'relative',
+				maskImage: `url(${pokemonImageUrl})`,
+				maskSize: 'cover',
+				maskPosition: 'center',
+
+				flexDirection: "column",
+				minHeight: "100vh",
+				// filter: "contrast(0%) brightness(10%)",
 			}}
 		>
-			<Typography variant="h2" color="initial">
-				Who's that Pokemon?
-			</Typography>
-			<Box
-				component="img"
-				sx={{ filter: "contrast(0%) brightness(10%)" }}
-				alt={pokemonName}
-				src={pokemonImageUrl}
+			<div
+				style={{
+					content: '""',
+					position: "absolute",
+					top: "0",
+					left: "0",
+					width: "100%",
+					height: "100%",
+					backgroundColor: "black",
+					// opacity: "0.9",
+					filter: "contrast(0%) brightness(10%)",
+				}}
 			/>
-			<Autocomplete
-				disablePortal
-				options={pokemonNames}
-				autoFocus={true}
-				value={guess}
-				onChange={handleInputChange}
-				onSelect={handleInputChange}
-				type={"text"}
-				clearOnBlur={false}
-				renderInput={(params) => <TextField {...params} label="Answer" />}
-			/>
-			<Button
-				variant="contained"
-				color="primary"
-				type="submit"
-				onClick={handleSubmit}
-			>
-				Submit
-			</Button>
-		</Box>
+			<Box sx={{ flex: 1 }} />
+			<Stack paddingBottom="8px" justifyContent={"center"} alignItems="center">
+				<Typography variant="h2" color="initial">
+					Who's That Pokémon?
+				</Typography>
+				<Autocomplete
+					disablePortal
+					options={pokemonNames}
+					autoFocus={true}
+					value={guess}
+					onChange={handleInputChange}
+					onSelect={handleInputChange}
+					type={"text"}
+					clearOnBlur={false}
+					freeSolo={true}
+					renderInput={(params) => <TextField {...params} label="Answer" />}
+				/>
+
+				<Button
+					variant="contained"
+					size="large"
+					color="primary"
+					type="submit"
+					onClick={handleSubmit}
+				>
+					Submit
+				</Button>
+			</Stack>
+		</Container>
 	) : (
-		// <div className="silhouette-page"> </div>
 		<div>
 			<Typography variant="h2" color="initial">
 				Loading...
