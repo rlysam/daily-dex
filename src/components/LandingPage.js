@@ -122,7 +122,7 @@ const LandingPage = () => {
 					sx={{
 						display: "flex",
 						flexDirection: "row",
-						maxHeight:"100%"
+						maxHeight: "100%",
 					}}
 				>
 					<Typography variant="h2" color="initial">
@@ -130,7 +130,7 @@ const LandingPage = () => {
 					</Typography>
 					<Box
 						component="img"
-						// sx={{ flexGrow: 1 }}
+						sx={{ filter: "contrast(0%) brightness(10%)" }}
 						alt={pokemonName}
 						src={pokemonImageUrl}
 					/>
