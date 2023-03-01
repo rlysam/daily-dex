@@ -116,67 +116,77 @@ const LandingPage = () => {
 	}, []);
 
 	return pokemonData && pokemonImageUrl ? (
-		<Container
-			sx={{
-				display: "flex",
-				height: "100vh",
-				// width: "100vw",
-				backgroundImage: `url(${pokemonImageUrl})`,
-				backgroundSize: "100%",
-				backgroundPosition: "center",
+		<>
+			<Container
+				sx={{
+					display: "flex",
+					height: "100vh",
+					// width: "100vw",
+					backgroundImage: `url(${pokemonImageUrl})`,
+					backgroundSize: "100%",
+					backgroundPosition: "center",
 
-				position: 'relative',
-				maskImage: `url(${pokemonImageUrl})`,
-				maskSize: 'cover',
-				maskPosition: 'center',
+					backgroundRepeat: "no-repeat",
+					position: "relative",
+					maskImage: `url(${pokemonImageUrl})`,
+					maskSize: "cover",
+					maskPosition: "center",
 
-				flexDirection: "column",
-				minHeight: "100vh",
-				// filter: "contrast(0%) brightness(10%)",
-			}}
-		>
-			<div
-				style={{
-					content: '""',
-					position: "absolute",
-					top: "0",
-					left: "0",
-					width: "100%",
-					height: "100%",
-					backgroundColor: "black",
-					// opacity: "0.9",
-					filter: "contrast(0%) brightness(10%)",
+					flexDirection: "column",
+					minHeight: "100vh",
+					// filter: "contrast(0%) brightness(10%)",
 				}}
-			/>
-			<Box sx={{ flex: 1 }} />
-			<Stack paddingBottom="8px" justifyContent={"center"} alignItems="center">
-				<Typography variant="h2" color="initial">
-					Who's That Pokémon?
-				</Typography>
-				<Autocomplete
-					disablePortal
-					options={pokemonNames}
-					autoFocus={true}
-					value={guess}
-					onChange={handleInputChange}
-					onSelect={handleInputChange}
-					type={"text"}
-					clearOnBlur={false}
-					freeSolo={true}
-					renderInput={(params) => <TextField {...params} label="Answer" />}
+			>
+				<div
+					style={{
+						content: '""',
+						position: "absolute",
+						top: "0",
+						left: "0",
+						width: "100%",
+						height: "100%",
+						backgroundColor: "black",
+						opacity: "1",
+						// filter: "contrast(0%) brightness(10%)",
+					}}
 				/>
+				<Box sx={{ flex: 1 }} />
+			</Container>
 
-				<Button
-					variant="contained"
-					size="large"
-					color="primary"
-					type="submit"
-					onClick={handleSubmit}
+				<Stack
+					paddingBottom="8px"
+					justifyContent={"center"}
+					alignItems="center"
 				>
-					Submit
-				</Button>
-			</Stack>
-		</Container>
+					<Typography variant="h2" color="initial">
+						Gawing Kagaya nung FAB
+						<br />
+						Who's That Pokémon?
+					</Typography>
+					<Autocomplete
+						disablePortal
+						options={pokemonNames}
+						autoFocus={true}
+						value={guess}
+						onChange={handleInputChange}
+						onSelect={handleInputChange}
+						type={"text"}
+						clearOnBlur={false}
+						freeSolo={true}
+						renderInput={(params) => <TextField {...params} label="Answer" />}
+					/>
+
+					<Button
+						variant="contained"
+						size="large"
+						color="primary"
+						type="submit"
+						onClick={handleSubmit}
+					>
+						Submit
+					</Button>
+				</Stack>
+		</>
 	) : (
 		<div>
 			<Typography variant="h2" color="initial">
