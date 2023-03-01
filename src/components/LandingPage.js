@@ -16,7 +16,7 @@ import "./../App.css";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Autocomplete, Stack, Container, Box } from "@mui/material";
+import { Autocomplete, Stack, Container, Box, Grid } from "@mui/material";
 import { maxHeight } from "@mui/system";
 
 const LandingPage = () => {
@@ -117,23 +117,52 @@ const LandingPage = () => {
 
 	return pokemonData && pokemonImageUrl ? (
 		<>
-			{!isCorrect && (
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "row",
-						maxHeight: "100%",
+			<Container
+				sx={{
+					display: "flex",
+					height: "100vh",
+					// width: "100vw",
+					backgroundImage: `url(${pokemonImageUrl})`,
+					backgroundSize: "100%",
+					backgroundPosition: "center",
+
+					backgroundRepeat: "no-repeat",
+					position: "relative",
+					maskImage: `url(${pokemonImageUrl})`,
+					maskSize: "cover",
+					maskPosition: "center",
+
+					flexDirection: "column",
+					minHeight: "100vh",
+					// filter: "contrast(0%) brightness(10%)",
+				}}
+			>
+				<div
+					style={{
+						content: '""',
+						position: "absolute",
+						top: "0",
+						left: "0",
+						width: "100%",
+						height: "100%",
+						backgroundColor: "black",
+						opacity: "1",
+						// filter: "contrast(0%) brightness(10%)",
 					}}
+				/>
+				<Box sx={{ flex: 1 }} />
+			</Container>
+
+				<Stack
+					paddingBottom="8px"
+					justifyContent={"center"}
+					alignItems="center"
 				>
 					<Typography variant="h2" color="initial">
-						Who's that Pokemon?
+						Gawing Kagaya nung FAB
+						<br />
+						Who's That Pokémon?
 					</Typography>
-					<Box
-						component="img"
-						sx={{ filter: "contrast(0%) brightness(10%)" }}
-						alt={pokemonName}
-						src={pokemonImageUrl}
-					/>
 					<Autocomplete
 						disablePortal
 						options={pokemonNames}
@@ -143,32 +172,22 @@ const LandingPage = () => {
 						onSelect={handleInputChange}
 						type={"text"}
 						clearOnBlur={false}
+						freeSolo={true}
 						renderInput={(params) => <TextField {...params} label="Answer" />}
 					/>
+
 					<Button
 						variant="contained"
+						size="large"
 						color="primary"
 						type="submit"
 						onClick={handleSubmit}
 					>
 						Submit
 					</Button>
-				</Box>
-			)}
-			{isCorrect && (
-				<div className="pokemon-container">
-					<Typography variant="h2" color="initial">
-						{pokemonName}
-					</Typography>
-					<img src={pokemonImageUrl} alt={pokemonName} />
-					<Typography variant="h4" color="initial">
-						Congratulations! You guessed correctly.
-					</Typography>
-				</div>
-			)}
+				</Stack>
 		</>
 	) : (
-		// <div className="silhouette-page"> </div>
 		<div>
 			<Typography variant="h2" color="initial">
 				Loading...

@@ -16,8 +16,9 @@ function App() {
 		onload: true,
 		loop: true,
 	});
+
 	useEffect(() => {
-		music.play();
+		// music.play();
 	}, []);
 
 	function stopMusic() {
